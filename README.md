@@ -24,6 +24,7 @@ TBD
 ## License
 
 RSolr::Europeana is Licensed under the EUPL V.1.1.;
+
 RSolr::LibraryCloud is Licensed under GNU GPL v. 2 
 
 For full details, see [LICENSE.md](LICENSE.md)
