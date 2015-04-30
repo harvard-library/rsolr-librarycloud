@@ -1,5 +1,5 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     module RequestRewriter
       ##
       # Search request rewriter

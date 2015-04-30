@@ -1,15 +1,15 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     ##
-    # Europeana REST API client with RSolr interface
+    # LibraryCloud REST API client with RSolr interface
     class Client < RSolr::Client
       def initialize(connection, options = {})
-        super(connection, options.merge(url: RSolr::Europeana::URL))
+        super(connection, options.merge(url: RSolr::LibraryCloud::URL))
       end
 
       def execute(request_context)
-        RSolr::Europeana.logger.debug(
-          "Europeana API request URL: #{request_context[:uri]}"
+        RSolr::LibraryCloud.logger.debug(
+          "LibraryCloud API request URL: #{request_context[:uri]}"
         )
         super
       end

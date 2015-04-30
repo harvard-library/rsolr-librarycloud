@@ -1,5 +1,5 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     module RequestRewriter
       ##
       # Record request rewriter
@@ -8,7 +8,7 @@ module RSolr
                             :rewrite_solr_local_params]
 
         ##
-        # Europeana Record ID
+        # LibraryCloud Record ID
         attr_reader :id
 
         def initialize(solr_params)

@@ -1,11 +1,11 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     module ResponseRewriter
       ##
       # Base class for response rewriters
       class Base
-        def initialize(europeana_response)
-          @europeana_response = europeana_response
+        def initialize(librarycloud_response)
+          @librarycloud_response = librarycloud_response
         end
 
         def response

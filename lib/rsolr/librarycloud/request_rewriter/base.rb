@@ -1,5 +1,5 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     module RequestRewriter
       ##
       # Abstract base class for request rewriters

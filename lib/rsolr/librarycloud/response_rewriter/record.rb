@@ -1,5 +1,5 @@
 module RSolr
-  module Europeana
+  module LibraryCloud
     module ResponseRewriter
       ##
       # Record response rewriter
@@ -8,55 +8,55 @@ module RSolr
         # Adapts a response from the API's Record method to resemble a Solr
         # query response of one document.
         #
-        # @param [Hash] response The Europeana REST API response
+        # @param [Hash] response The LibraryCloud REST API response
         # @return [Hash]
         def rewrite_response
           @response = {
             'response' => {
               'numFound' => 1,
               'start' => 0,
-              'docs' => [solr_doc_from_europeana_object]
+              'docs' => [solr_doc_from_librarycloud_object]
             }
           }
         end
 
-        def europeana_object
-          @europeana_response[:object]
+        def librarycloud_object
+          @librarycloud_response[:object]
         end
 
         def edm_root_fields
-          europeana_object.select do |key, _value|
+          librarycloud_object.select do |key, _value|
             [:edmDatasetName, :language, :type, :title, :about,
-             :europeanaCollectionName, :timestamp_created_epoch,
+             :librarycloudCollectionName, :timestamp_created_epoch,
              :timestamp_update_epoch, :timestamp_created, :timestamp_update
             ].include?(key)
           end
         end
 
         def edm_proxy
-          europeana_object[:proxies].first.reject do |key, _value|
-            [:proxyFor, :europeanaProxy, :proxyIn, :about].include?(key)
+          librarycloud_object[:proxies].first.reject do |key, _value|
+            [:proxyFor, :librarycloudProxy, :proxyIn, :about].include?(key)
           end
         end
 
         def edm_aggregation
-          europeana_object[:aggregations].first.reject do |key, _value|
+          librarycloud_object[:aggregations].first.reject do |key, _value|
             [:webResources, :aggregatedCHO, :about].include?(key)
           end
         end
 
-        def edm_europeana_aggregation
-          europeana_object[:europeanaAggregation].reject do |key, _value|
+        def edm_librarycloud_aggregation
+          librarycloud_object[:librarycloudAggregation].reject do |key, _value|
             [:about, :aggregatedCHO].include?(key)
           end
         end
 
-        def solr_doc_from_europeana_object
+        def solr_doc_from_librarycloud_object
           doc = edm_root_fields
-          doc[:id] = europeana_object[:about]
+          doc[:id] = librarycloud_object[:about]
           doc.merge!(edm_proxy)
           doc.merge!(edm_aggregation)
-          doc.merge!(edm_europeana_aggregation)
+          doc.merge!(edm_librarycloud_aggregation)
           flatten_edm_doc(doc)
         end
 

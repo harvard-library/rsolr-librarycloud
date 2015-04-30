@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rsolr/europeana/version'
+require 'rsolr/librarycloud/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'rsolr-europeana'
-  spec.version       = RSolr::Europeana::VERSION
+  spec.name          = 'rsolr-librarycloud'
+  spec.version       = RSolr::LibraryCloud::VERSION
   spec.authors       = ['Richard Doe']
   spec.email         = ['richard.doe@rwdit.net']
-  spec.description   = 'Provides access to the Europeana REST API via an
+  spec.description   = 'Provides access to the LibraryCloud REST API via an
                         RSolr compatible interface'
-  spec.summary       = 'Access the Europeana API like a Solr server'
-  spec.homepage      = 'https://github.com/rwd/rsolr-europeana'
+  spec.summary       = 'Access the LibraryCloud API like a Solr server'
+  spec.homepage      = 'https://github.com/rwd/rsolr-librarycloud'
   spec.license       = 'EUPL 1.1'
 
   spec.files         = `git ls-files`.split($RS)
