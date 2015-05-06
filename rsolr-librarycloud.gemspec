@@ -6,8 +6,8 @@ require 'rsolr/librarycloud/version'
 Gem::Specification.new do |spec|
   spec.name          = 'rsolr-librarycloud'
   spec.version       = RSolr::LibraryCloud::VERSION
-  spec.authors       = ['Richard Doe']
-  spec.email         = ['richard.doe@rwdit.net']
+  spec.authors       = ['David Mayo', 'Bobbi Fox']
+  spec.email         = ['dave_mayo@harvard.edu', 'bobbi_fox@harvard.edu']
   spec.description   = 'Provides access to the LibraryCloud REST API via an
                         RSolr compatible interface'
   spec.summary       = 'Access the LibraryCloud API like a Solr server'
