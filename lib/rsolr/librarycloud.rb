@@ -11,7 +11,7 @@ module RSolr
     autoload :ResponseRewriter, 'rsolr/librarycloud/response_rewriter'
 
     # Base URL of the LibraryCloud REST API
-    URL = 'http://www.librarycloud.eu/api/v2'
+    URL = 'http://api.lib.harvard.edu/v2/items.json'
 
     # @return [RSolr::LibraryCloud::Client]
     def self.connect(*args)
