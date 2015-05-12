@@ -4,7 +4,7 @@ require 'active_support/hash_with_indifferent_access'
 require 'rsolr'
 require 'rsolr/librarycloud'
 
-class TestSearch < MiniTest::Unit::TestCase
+class TestSearch < MiniTest::Test
   def setup
     @inputHash = {'basic' =>'q=peanuts'}
   end
