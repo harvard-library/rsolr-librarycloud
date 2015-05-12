@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
                         RSolr compatible interface'
   spec.summary       = 'Access the LibraryCloud API like a Solr server'
   spec.homepage      = 'https://github.com/rwd/rsolr-librarycloud'
-  spec.license       = 'EUPL 1.1'
+  spec.license       = 'GNU GPL v2'
 
   spec.files         = `git ls-files`.split($RS)
   spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
@@ -26,4 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3'
   spec.add_development_dependency 'webmock', '~> 1.20'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry-debugger'
+  spec.add_development_dependency 'activesupport'
 end
