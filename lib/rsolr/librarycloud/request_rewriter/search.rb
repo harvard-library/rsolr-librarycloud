@@ -18,14 +18,17 @@ module RSolr
         end
 
         def rewrite_search_params
-          @params[:query] = @params.delete(:q)
-          @params[:query] = '*:*' if @params[:query] == '{!qf=all_fields}'
-          @params[:profile] = 'facets params'
-          @params[:facet] = @params.delete('facet.field')
+          # I'm sure there's a more elegant way to do this
+          facet = @params.delete('facet.field')
+          if facet 
+            @params[:facet] = @params.delete('facet.field')
+          end
+
           @params[:start] = (@params[:start] || 0) + 1
-          @params[:limit] = @params.delete('rows')
+          @params[:limit] = (@params.delete('rows') || 10)
+#TODO: DEALING WITH QF
 #          @params[:qf] = @params.delete(:fq) unless @params[:fq].blank?
-          @params[:qf] = (@params[:qf] || []) + (@params.delete(:fq) || [])
+#          @params[:qf] = (@params[:qf] || []) + (@params.delete(:fq) || [])
         end
 
         ##
@@ -34,6 +37,7 @@ module RSolr
         # @todo implement in the API / map to s'thing else / raise error if
         #   present
         def delete_search_params
+          #TODO: we're going the other way, maybe
           %w(facet facet.pivot facet.query sort spellcheck.q).each do |k|
             @params.delete(k)
           end
