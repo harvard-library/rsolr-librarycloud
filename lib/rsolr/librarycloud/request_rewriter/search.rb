@@ -23,8 +23,8 @@ module RSolr
           if facet 
             @params[:facet] = @params.delete('facet.field')
           end
-
-          @params[:start] = (@params[:start] || 0) + 1
+          # library cloud starts at 0, as does solr
+          @params[:start] = (@params[:start] || 0) 
           @params[:limit] = (@params.delete('rows') || 10)
 #TODO: DEALING WITH QF
 #          @params[:qf] = @params.delete(:fq) unless @params[:fq].blank?

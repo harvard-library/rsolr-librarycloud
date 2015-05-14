@@ -7,8 +7,8 @@ require 'rsolr/librarycloud'
 class TestSearch < MiniTest::Test
   def setup
     @inputHash = {'basic' => {q: 'peanuts'},'withwt' => {q: 'peanuts', wt: 'json'  }}
-    @outputHash = {'basic' => {"q"=>"peanuts", "start"=>1, "limit"=>10},
-      'withwt' => {"q"=>"peanuts", "start"=>1, "limit"=>10}}
+    @outputHash = {'basic' => {"q"=>"peanuts", "start"=>0, "limit"=>10},
+      'withwt' => {"q"=>"peanuts", "start"=>0, "limit"=>10}}
   end
 
   def test_path
