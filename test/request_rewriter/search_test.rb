@@ -4,11 +4,19 @@ require 'active_support/hash_with_indifferent_access'
 require 'rsolr'
 require 'rsolr/librarycloud'
 
+class Hash
+  def wia
+    return HashWithIndifferentAccess.new(self)
+  end
+
+end
+
 class TestSearch < MiniTest::Test
+  
   def setup
     @inputHash = {'basic' => {q: 'peanuts'},'withwt' => {q: 'peanuts', wt: 'json'  }}
-    @outputHash = {'basic' => {"q"=>"peanuts", "start"=>0, "limit"=>10},
-      'withwt' => {"q"=>"peanuts", "start"=>0, "limit"=>10}}
+    @outputHash = {'basic' => {q:"peanuts", start:0, limit:10},
+      'withwt' => {q:"peanuts", start:0, limit:10}}
   end
 
   def test_path
@@ -16,11 +24,11 @@ class TestSearch < MiniTest::Test
   end
 
   def test_basic
-    assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['basic']).execute, @outputHash['basic'], "basic should be unchanged")
+    assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['basic']).execute, @outputHash['basic'].wia, "basic should be unchanged")
   end
 
   def test_with_wt
-    assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['withwt']).execute, @outputHash['basic'], "withwt should have wt stripped")
+    assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['withwt']).execute, @outputHash['withwt'].wia, "withwt should have wt stripped")
   end
 
 end
