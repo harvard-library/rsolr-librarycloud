@@ -10,8 +10,8 @@ module RSolr
         def rewrite_response
           @response = {
             'response' => {
-              'numFound' => @librarycloud_response[:totalResults],
-              'start' => (@librarycloud_response[:params][:start] || 0) - 1,
+              'numFound' => @librarycloud_response[:pagination][:numFound],
+              'start' => (@librarycloud_response[:pagination][:start] || 0),
               'docs' => @librarycloud_response[:items]
             },
             'facet_counts' => {
@@ -21,10 +21,11 @@ module RSolr
         end
 
         def solr_facets_from_librarycloud_facets
-          response_facets = @librarycloud_response[:facets] || []
+          response_facets = @librarycloud_response[:facets][:facetField] || []
+
           response_facets.each_with_object({}) do |facet, facets|
-            facets[facet[:name]] = facet[:fields].collect do |field|
-              [field[:label], field[:count]]
+            facets[facet[:facetName]] = facet[:facet].collect do |field|
+              [field[:term], field[:count]]
             end.flatten
           end
         end
