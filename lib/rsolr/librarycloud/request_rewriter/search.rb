@@ -9,6 +9,24 @@ module RSolr
       #   remove facet:true
       #   collect facetNames in a single string, comma delimited.
 
+
+#irb --> arr
+#    ==> ["foo", "bar", "mumble", "fratz"]
+#
+#irb --> x
+#    ==> "bar"
+#
+#irb --> y = "bat"
+#    ==> "bat"
+#
+#irb --> arr.include? y
+#    ==> false
+#
+#irb --> arr.include? x
+#    ==> true
+#
+#irb -->
+
       class Search < Base
         @rewrite_methods = [:delete_search_params, :rewrite_search_params,
                             :delete_params, :rewrite_solr_local_params]
