@@ -14,9 +14,11 @@ end
 class TestSearch < MiniTest::Test
   
   def setup
-    @inputHash = {'basic' => {q: 'peanuts'},'withwt' => {q: 'peanuts', wt: 'json'  }}
+    @inputHash = {'basic' => {q: 'peanuts'},'withwt' => {q: 'peanuts', wt: 'json'  },
+      'withkw' => {q:"peanuts", name:"schulz" } }
     @outputHash = {'basic' => {q:"peanuts", start:0, limit:10},
-      'withwt' => {q:"peanuts", start:0, limit:10}}
+      'withwt' => {q:"peanuts", start:0, limit:10},
+      'withkw' => {q:"peanuts", name_keyword:"schulz", start:0, limit:10 } }
   end
 
   def test_path
@@ -30,5 +32,7 @@ class TestSearch < MiniTest::Test
   def test_with_wt
     assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['withwt']).execute, @outputHash['withwt'].wia, "withwt should have wt stripped")
   end
-
+  def test_with_kw
+    assert_equal(RSolr::LibraryCloud::RequestRewriter::Search.new(@inputHash['withkw']).execute, @outputHash['withkw'].wia, "withkw should have name replaced with name_keyword")
+  end
 end

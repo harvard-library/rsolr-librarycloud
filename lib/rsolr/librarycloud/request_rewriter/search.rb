@@ -4,7 +4,7 @@ module RSolr
       ##
       # Search request rewriter
       #  replace q=[value]with q=keyword:[value]
-      # replace  q=[keywordName]:[value] with q=[keywordName]_keyword:[value]
+      # replace  q=[fieldname]:[value] with q=[fieldName]_keyword:[value]
       # if any facets:
       #   add facet:true
       #   break out  single string of facetNames (comma delimited) into facet.field={facetName}
@@ -28,15 +28,24 @@ module RSolr
 #irb -->
 
       class Search < Base
+        NOT_KEYWORDED = %w(callback sort start limit row q facet facet.field wt sort.asc sort.desc)
         @rewrite_methods = [:delete_search_params, :rewrite_search_params,
                             :delete_params, :rewrite_solr_local_params]
-        KEYWORDED_FIELDS = ['title', 'name', 'role', 'resource', 'genre', 'originPlace', 'publisher', 'edition', 'issuance', 'languageText', 'abstractTOC', 'subject', 'subject.topic', 'subject.temporal', 'subject.title', 'subject.name', 'subject.name.role', 'subject.genre', 'subject.geographic', 'subject.hierarchicalGeographic', 'subject.hierarchicalGeographic.country', 'subject.hierarchicalGeographic.province', 'subject.hierarchicalGeographic.region', 'subject.hierarchicalGeographic.state', 'subject.hierarchicalGeographic.territory', 'subject.hierarchicalGeographic.county', 'subject.hierarchicalGeographic.city', 'subject.hierarchicalGeographic.island','subject.hierarchicalGeographic.area', 'subject.hierarchicalGeographic.extraterrestrialArea', 'subject.hierarchicalGeographic.citySection', 'relatedItem', 'physicalLocation', 'shelfLocator', 'urn', 'collectionTitle']
         def path
           '/api/v2/search.json'
         end
 
         def rewrite_search_params
           # I'm sure there's a more elegant way to do this
+          @tempParams = HashWithIndifferentAccess.new
+          @params.each do |k, v|
+            if !NOT_KEYWORDED.include? k
+              @tempParams[k +'_keyword'] = @params.delete(k)
+            end
+          end
+          @tempParams.each do |k, v|
+            @params[k] = v
+          end
           if @params.delete(:facet)
             @params[:facetNames] = @params.delete("facet.field").join(",")
           end
