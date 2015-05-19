@@ -11,8 +11,8 @@
 
 ## Other LibraryCloud issues
 
-* A lot of the *name* field data is "dirty" -- containing line feeds and white space.  This makes taking a facet value, e.g.: 
+* A lot of the values in the field data is "dirty" -- containing line feeds and white space.  This makes taking a facet value, e.g.: 
 
   `"\n      Roda, Beno \n      \n         creator\n         \n       \n   "`
   
-  just about impossible to use for the **name_exact** syntax
+  just about impossible to use for the **_exact** syntax
