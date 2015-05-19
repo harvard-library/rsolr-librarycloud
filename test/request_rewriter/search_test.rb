@@ -12,7 +12,8 @@ class Hash
 end
 
 class TestSearch < MiniTest::Test
-  
+  include TestHelpers
+
   def setup
     @inputHash = {'basic' => {q: 'peanuts'},'withwt' => {q: 'peanuts', wt: 'json'  },
       'withkw' => {q:"peanuts", name:"schulz" } }

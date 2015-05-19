@@ -1,29 +1,14 @@
 # testing the response_rewriter/search
 require 'minitest/autorun'
 require 'minitest/pride'
-
+require 'json'
 require 'active_support/hash_with_indifferent_access'
 require 'rsolr'
 require 'rsolr/librarycloud'
-require 'json'
-require 'pry'
-
-def r_symbolize_keys hsh
-    case hsh
-    when Hash
-      hsh.reduce({}) do |r,(k,v)|
-        r[k.to_sym] = r_symbolize_keys(v)
-        r
-      end
-    when Array
-      hsh.map {|el| r_symbolize_keys el}
-    else
-      hsh
-    end
-end
 
 module ResponseRewriter
   class SearchTest < MiniTest::Test
+    include TestHelpers
 
     DATA_PATH = File.join(File.absolute_path('.').sub(/rsolr-librarycloud\/.*/, 'rsolr-librarycloud'),
                           "test", "data")
