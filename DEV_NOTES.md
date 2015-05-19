@@ -6,6 +6,7 @@
 
 * **start** : default is **0**, not **1**
 * **facet_size** is **NOT** supported; the number of facets returned is dependent on the number of facets found, and cannot be limited
+* **language_code** is keyworded, indexed, stored, **NOT** **languageText**
 
 
 ## Other LibraryCloud issues
