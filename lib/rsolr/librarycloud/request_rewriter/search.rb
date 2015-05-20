@@ -3,6 +3,8 @@ module RSolr
     module RequestRewriter
       ##
       # Search request rewriter
+      #
+      # I MESSED UP!!  I have to do more research on the fieldname stuff...
       #  replace q=[value]with q=keyword:[value]
       # replace  q=[fieldname]:[value] with q=[fieldName]_keyword:[value]
       # if any facets:
